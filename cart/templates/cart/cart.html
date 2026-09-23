@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Cart</title>
+</head>
+
+<body>
+
+    <h1>My Shopping Cart</h1>
+
+    <a href="{% url 'home' %}">
+        ← Continue Shopping
+    </a>
+
+    <hr>
+
+    {% if cart_items %}
+
+        {% for item in cart_items %}
+
+            <div>
+
+                <h2>{{ item.product.name }}</h2>
+
+                {% if item.product.image %}
+                    <img
+                        src="{{ item.product.image.url }}"
+                        alt="{{ item.product.name }}"
+                        width="150"
+                    >
+                {% endif %}
+
+                <p>
+                    Price: ₹{{ item.product.price }}
+                </p>
+
+                <p>
+                    Quantity: {{ item.quantity }}
+                </p>
+
+                <p>
+                    Subtotal:
+                    ₹{% widthratio item.product.price 1 item.quantity %}
+                </p>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+        <h2>
+            Cart Total: ₹{{ total }}
+        </h2>
+
+        <button>
+            Proceed to Checkout
+        </button>
+
+    {% else %}
+
+        <h2>Your cart is empty.</h2>
+
+        <a href="{% url 'home' %}">
+            Start Shopping
+        </a>
+
+    {% endif %}
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+@"
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Django local database
+db.sqlite3
+
+# Environment variables / secrets
+.env
+
+# VS Code
+.vscode/
+
+# Uploaded media
+media/
+
+# Test/cache files
+.pytest_cache/
+"@ | Set-Content .gitignore

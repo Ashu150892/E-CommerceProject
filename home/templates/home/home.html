@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My E-Commerce Store</title>
+</head>
+
+<body>
+
+    <h1>My E-Commerce Store</h1>
+
+    <h2>Products</h2>
+
+    {% for product in products %}
+
+        <div>
+            <h3>{{ product.name }}</h3>
+
+            <p>Price: ₹{{ product.price }}</p>
+
+            <p>{{ product.description }}</p>
+
+            {% if product.image %}
+                <img
+                    src="{{ product.image.url }}"
+                    alt="{{ product.name }}"
+                    width="250"
+                >
+            {% endif %}
+{% if product.note %}
+    <p>Note: {{ product.note }}</p>
+{% endif %}
+
+<a href="{% url 'add_to_cart' product.id %}">
+    Add to Cart
+</a>
+
+        </div>
+
+        <hr>
+
+    {% empty %}
+
+        <p>No products available.</p>
+
+    {% endfor %}
+
+</body>
+
+</html>
