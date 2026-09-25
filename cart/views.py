@@ -55,3 +55,41 @@ def cart_page(request):
             "total": total,
         }
     )
+
+
+def increase_quantity(request, item_id):
+
+    cart_item = get_object_or_404(
+        CartItem,
+        id=item_id
+    )
+
+    cart_item.quantity += 1
+    cart_item.save()
+
+    return redirect("cart_page")
+
+
+def decrease_quantity(request, item_id):
+
+    cart_item = get_object_or_404(
+        CartItem,
+        id=item_id
+    )
+
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+
+    return redirect("cart_page")
+
+def remove_from_cart(request, item_id):
+
+    cart_item = get_object_or_404(
+        CartItem,
+        id=item_id
+    )
+
+    cart_item.delete()
+
+    return redirect("cart_page")

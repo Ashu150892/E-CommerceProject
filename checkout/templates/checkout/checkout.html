@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout</title>
+</head>
+
+<body>
+
+    <h1>Checkout</h1>
+
+    <p>
+        <a href="{% url 'cart_page' %}">
+            ← Back to Cart
+        </a>
+    </p>
+
+    <hr>
+
+    <h2>Order Summary</h2>
+
+    {% for item in cart_items %}
+
+        <div>
+
+            <h3>{{ item.product.name }}</h3>
+
+            {% if item.product.image %}
+                <img
+                    src="{{ item.product.image.url }}"
+                    alt="{{ item.product.name }}"
+                    width="150"
+                >
+            {% endif %}
+
+            <p>
+                Price: ₹{{ item.product.price }}
+            </p>
+
+            <p>
+                Quantity: {{ item.quantity }}
+            </p>
+
+            <p>
+                Subtotal:
+                ₹{% widthratio item.product.price 1 item.quantity %}
+            </p>
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+    <h2>
+        Cart Total: ₹{{ total }}
+    </h2>
+
+    <hr>
+
+    <h2>Delivery Address</h2>
+
+{% if saved_address %}
+
+    <div>
+
+        <p>
+            <strong>{{ saved_address.full_name }}</strong>
+        </p>
+
+        <p>
+            Phone: {{ saved_address.phone }}
+        </p>
+
+        <p>
+            {{ saved_address.address_line_1 }}
+        </p>
+
+        {% if saved_address.address_line_2 %}
+            <p>
+                {{ saved_address.address_line_2 }}
+            </p>
+        {% endif %}
+
+        <p>
+            {{ saved_address.city }},
+            {{ saved_address.state }}
+        </p>
+
+        <p>
+            Postal Code: {{ saved_address.postal_code }}
+        </p>
+
+        <p>
+            {{ saved_address.country }}
+        </p>
+
+    </div>
+
+    <hr>
+
+    <h3>Change Address</h3>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ address_form.as_p }}
+
+        <button type="submit">
+            Save New Address
+        </button>
+
+    </form>
+
+{% else %}
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ address_form.as_p }}
+
+        <button type="submit">
+            Save Address & Continue
+        </button>
+
+    </form>
+
+{% endif %}
+<hr>
+
+<h2>Place Your Order</h2>
+
+<form method="post" action="{% url 'place_order' %}">
+
+    {% csrf_token %}
+
+    <button type="submit">
+        Place Order
+    </button>
+
+</form>
+
+</body>
+
+</html>

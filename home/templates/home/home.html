@@ -12,39 +12,47 @@
 
     <h1>My E-Commerce Store</h1>
 
+    <p>
+    <a href="{% url 'order_history' %}">
+        📦 My Orders
+    </a>
+</p>
+
+    <p>
+        <a href="{% url 'cart_page' %}">
+            🛒 Cart ({{ cart_count }})
+        </a>
+    </p>
+
     <h2>Products</h2>
 
     {% for product in products %}
 
-        <div>
-            <h3>{{ product.name }}</h3>
+    <div>
+        <h3>{{ product.name }}</h3>
 
-            <p>Price: ₹{{ product.price }}</p>
+        <p>Price: ₹{{ product.price }}</p>
 
-            <p>{{ product.description }}</p>
+        <p>{{ product.description }}</p>
 
-            {% if product.image %}
-                <img
-                    src="{{ product.image.url }}"
-                    alt="{{ product.name }}"
-                    width="250"
-                >
-            {% endif %}
-{% if product.note %}
-    <p>Note: {{ product.note }}</p>
-{% endif %}
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="250">
+        {% endif %}
+        {% if product.note %}
+        <p>Note: {{ product.note }}</p>
+        {% endif %}
 
-<a href="{% url 'add_to_cart' product.id %}">
-    Add to Cart
-</a>
+        <a href="{% url 'add_to_cart' product.id %}">
+            Add to Cart
+        </a>
 
-        </div>
+    </div>
 
-        <hr>
+    <hr>
 
     {% empty %}
 
-        <p>No products available.</p>
+    <p>No products available.</p>
 
     {% endfor %}
 

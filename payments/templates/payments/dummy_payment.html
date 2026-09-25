@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dummy Online Payment</title>
+</head>
+
+<body>
+
+    <h1>Dummy Online Payment</h1>
+
+    <p>
+        This is a test payment page.
+        No real money will be charged.
+    </p>
+
+    <hr>
+
+    {% if payment_failed %}
+
+        <h2>Payment Failed</h2>
+
+        <p>
+            Your payment could not be completed.
+        </p>
+
+        <p>
+            Please try again with another payment method.
+        </p>
+
+        <p>
+    <a href="{% url 'dummy_payment' order.order_number %}">
+        Retry Payment
+    </a>
+</p>
+
+        <hr>
+
+    {% endif %}
+
+
+    {% if invalid_card %}
+
+        <h2>Invalid Card</h2>
+
+        <p>
+            The test card number is not recognized.
+        </p>
+
+        <hr>
+
+    {% endif %}
+
+
+    <h2>Order Details</h2>
+
+    <p>
+        Order Number:
+        <strong>{{ order.order_number }}</strong>
+    </p>
+
+    <p>
+        Amount:
+        <strong>₹{{ order.total_amount }}</strong>
+    </p>
+
+    <hr>
+
+    <h2>Test Card Details</h2>
+
+    <p>
+        <strong>Success Card:</strong>
+        4111111111111111
+    </p>
+
+    <p>
+        <strong>Failed Card:</strong>
+        4000000000000002
+    </p>
+
+    <hr>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <p>
+            <label>
+                Card Holder Name:
+            </label>
+            <br>
+
+            <input
+                type="text"
+                name="card_holder"
+                required
+            >
+        </p>
+
+        <p>
+            <label>
+                Card Number:
+            </label>
+            <br>
+
+            <input
+                type="text"
+                name="card_number"
+                maxlength="16"
+                required
+            >
+        </p>
+
+        <p>
+            <label>
+                Expiry:
+            </label>
+            <br>
+
+            <input
+                type="text"
+                name="expiry"
+                placeholder="MM/YY"
+                required
+            >
+        </p>
+
+        <p>
+            <label>
+                CVV:
+            </label>
+            <br>
+
+            <input
+                type="password"
+                name="cvv"
+                maxlength="3"
+                required
+            >
+        </p>
+
+        <button type="submit">
+            Pay ₹{{ order.total_amount }}
+        </button>
+
+    </form>
+
+    <hr>
+
+    <a href="{% url 'payment_page' order.order_number %}">
+        ← Back to Payment Methods
+    </a>
+
+</body>
+
+</html>

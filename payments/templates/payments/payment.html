@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment</title>
+</head>
+
+<body>
+
+    <h1>Choose Payment Method</h1>
+
+    <hr>
+
+    <h2>Order Summary</h2>
+
+    <p>
+        Order Number:
+        <strong>{{ order.order_number }}</strong>
+    </p>
+
+    <p>
+        Total Amount:
+        <strong>₹{{ order.total_amount }}</strong>
+    </p>
+
+    <hr>
+
+    {% if error %}
+
+        <p>
+            <strong>{{ error }}</strong>
+        </p>
+
+    {% endif %}
+
+
+    {% if online_payment %}
+
+        <h2>Online Payment</h2>
+
+        <p>
+            Online payment gateway will be integrated here.
+        </p>
+
+        <p>
+            Amount to Pay:
+            <strong>₹{{ order.total_amount }}</strong>
+        </p>
+
+        <p>
+            Payment Status:
+            <strong>Pending</strong>
+        </p>
+
+        <hr>
+
+        <a href="{% url 'order_success' order.order_number %}">
+            Continue for Testing
+        </a>
+
+    {% else %}
+
+        <h2>Select Payment Method</h2>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <p>
+                <label>
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="COD"
+                    >
+                    Cash on Delivery
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="ONLINE"
+                    >
+                    Online Payment
+                </label>
+            </p>
+
+            <button type="submit">
+                Continue to Payment
+            </button>
+
+        </form>
+
+    {% endif %}
+
+    <hr>
+
+    <a href="{% url 'home' %}">
+        Continue Shopping
+    </a>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders</title>
+</head>
+
+<body>
+
+    <h1>My Orders</h1>
+
+    <p>
+        <a href="{% url 'home' %}">
+            ← Continue Shopping
+        </a>
+    </p>
+
+    <hr>
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+            <div>
+
+                <h2>
+                    Order {{ order.order_number }}
+                </h2>
+
+                <p>
+                    Order Date:
+                    {{ order.created_at }}
+                </p>
+
+                <p>
+                    Order Status:
+                    <strong>
+                        {{ order.get_status_display }}
+                    </strong>
+                </p>
+
+                <p>
+                    Total Amount:
+                    <strong>
+                        ₹{{ order.total_amount }}
+                    </strong>
+                </p>
+
+                <h3>Items</h3>
+
+                {% for item in order.items.all %}
+
+                    <div>
+
+                        <p>
+                            <strong>
+                                {{ item.product_name }}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Price: ₹{{ item.price }}
+                        </p>
+
+                        <p>
+                            Quantity: {{ item.quantity }}
+                        </p>
+
+                        <p>
+                            Subtotal: ₹{{ item.subtotal }}
+                        </p>
+
+                    </div>
+
+                    <hr>
+
+                {% endfor %}
+
+                <p>
+                    <a href="{% url 'order_success' order.order_number %}">
+                        View Order Details
+                    </a>
+                </p>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <h2>No Orders Yet</h2>
+
+        <p>
+            You have not placed any orders yet.
+        </p>
+
+        <a href="{% url 'home' %}">
+            Start Shopping
+        </a>
+
+    {% endif %}
+
+</body>
+
+</html>

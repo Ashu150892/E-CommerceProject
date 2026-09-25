@@ -20,54 +20,65 @@
 
     {% if cart_items %}
 
-        {% for item in cart_items %}
+    {% for item in cart_items %}
 
-            <div>
+    <div>
 
-                <h2>{{ item.product.name }}</h2>
+        <h2>{{ item.product.name }}</h2>
 
-                {% if item.product.image %}
-                    <img
-                        src="{{ item.product.image.url }}"
-                        alt="{{ item.product.name }}"
-                        width="150"
-                    >
-                {% endif %}
+        {% if item.product.image %}
+        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="150">
+        {% endif %}
 
-                <p>
-                    Price: ₹{{ item.product.price }}
-                </p>
+        <p>
+            Price: ₹{{ item.product.price }}
+        </p>
 
-                <p>
-                    Quantity: {{ item.quantity }}
-                </p>
+        <p>
+            Quantity:
 
-                <p>
-                    Subtotal:
-                    ₹{% widthratio item.product.price 1 item.quantity %}
-                </p>
+            <a href="{% url 'decrease_quantity' item.id %}">
+                −
+            </a>
 
-            </div>
+            {{ item.quantity }}
 
-            <hr>
+            <a href="{% url 'increase_quantity' item.id %}">
+                +
+            </a>
+        </p>
 
-        {% endfor %}
+        <p>
+            <a href="{% url 'remove_from_cart' item.id %}">
+                Remove
+            </a>
+        </p>
+        <p>
+            Subtotal:
+            ₹{% widthratio item.product.price 1 item.quantity %}
+        </p>
 
-        <h2>
-            Cart Total: ₹{{ total }}
-        </h2>
+    </div>
 
-        <button>
-            Proceed to Checkout
-        </button>
+    <hr>
+
+    {% endfor %}
+
+    <h2>
+        Cart Total: ₹{{ total }}
+    </h2>
+
+   <a href="{% url 'checkout' %}">
+    Proceed to Checkout
+</a>
 
     {% else %}
 
-        <h2>Your cart is empty.</h2>
+    <h2>Your cart is empty.</h2>
 
-        <a href="{% url 'home' %}">
-            Start Shopping
-        </a>
+    <a href="{% url 'home' %}">
+        Start Shopping
+    </a>
 
     {% endif %}
 
