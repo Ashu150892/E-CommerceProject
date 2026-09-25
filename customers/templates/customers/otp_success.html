@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Successful</title>
+</head>
+
+<body>
+
+    <h1>Login Successful!</h1>
+
+    <p>
+        Your OTP has been verified successfully.
+    </p>
+
+    <hr>
+
+    <h2>Customer Information</h2>
+
+    {% if customer.full_name %}
+        <p>
+            Name: <strong>{{ customer.full_name }}</strong>
+        </p>
+    {% endif %}
+
+    {% if customer.email %}
+        <p>
+            Email: <strong>{{ customer.email }}</strong>
+        </p>
+    {% endif %}
+
+    {% if customer.phone %}
+        <p>
+            Phone: <strong>{{ customer.phone }}</strong>
+        </p>
+    {% endif %}
+
+    <hr>
+
+    <a href="{% url 'customer_profile' %}">
+    Go to My Profile
+</a>
+
+<br><br>
+
+<a href="{% url 'home' %}">
+    Continue Shopping
+</a>
+
+</body>
+
+</html>

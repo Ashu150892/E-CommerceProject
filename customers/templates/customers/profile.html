@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile</title>
+</head>
+
+<body>
+
+    <h1>My Profile</h1>
+
+    <hr>
+
+    <h2>Customer Information</h2>
+
+    <p>
+        <strong>Name:</strong>
+        {% if customer.full_name %}
+            {{ customer.full_name }}
+        {% else %}
+            Not added
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        {% if customer.email %}
+            {{ customer.email }}
+        {% else %}
+            Not added
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Phone:</strong>
+        {% if customer.phone %}
+            {{ customer.phone }}
+        {% else %}
+            Not added
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Account Status:</strong>
+        {% if customer.is_active %}
+            Active
+        {% else %}
+            Inactive
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Account Created:</strong>
+        {{ customer.created_at }}
+    </p>
+
+    <hr>
+    
+    <p>
+    <a href="{% url 'edit_profile' %}">
+        ✏️ Edit Profile
+    </a>
+</p>
+    <p>
+        <a href="{% url 'home' %}">
+            ← Continue Shopping
+        </a>
+    </p>
+
+</body>
+
+</html>

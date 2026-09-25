@@ -36,6 +36,8 @@ urlpatterns = [
     include("payments.urls")
 ),
 
+path("customer/", include("customers.urls")),
+
 ]
 
 

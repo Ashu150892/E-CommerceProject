@@ -1,5 +1,6 @@
 from django import forms
-from .models import Address
+
+from .models import Address, Customer
 
 
 class AddressForm(forms.ModelForm):
@@ -64,6 +65,24 @@ class AddressForm(forms.ModelForm):
             "country": forms.TextInput(
                 attrs={
                     "placeholder": "Country"
+                }
+            ),
+        }
+
+
+class CustomerProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Customer
+
+        fields = [
+            "full_name",
+        ]
+
+        widgets = {
+            "full_name": forms.TextInput(
+                attrs={
+                    "placeholder": "Enter your full name"
                 }
             ),
         }

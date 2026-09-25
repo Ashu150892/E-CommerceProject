@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Login</title>
+</head>
+
+<body>
+
+    <h1>Customer Login</h1>
+
+    <p>
+        Login using your email address or phone number.
+    </p>
+
+    {% if error %}
+        <p style="color: red;">
+            {{ error }}
+        </p>
+    {% endif %}
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <p>
+            <label for="identifier">
+                Email or Phone Number:
+            </label>
+        </p>
+
+        <p>
+            <input
+                type="text"
+                id="identifier"
+                name="identifier"
+                placeholder="Enter email or phone"
+                required
+            >
+        </p>
+
+        <button type="submit">
+            Send OTP
+        </button>
+
+    </form>
+
+    <hr>
+
+    <p>
+        <a href="{% url 'home' %}">
+            ← Back to Home
+        </a>
+    </p>
+
+</body>
+
+</html>
